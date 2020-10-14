@@ -19,7 +19,7 @@ public class ReservaResource {
 	ReservaService reservaService;
 
 	@PostMapping(value="/reservar")
-	public String reserveNow(@RequestBody NewReserveDTO reserveObj) throws ParseException {
+	public String reserveNow(@RequestBody NewReserveDTO reserveObj) throws Exception {
 		
 		String reserveReturn = reservaService.reserveNow(reserveObj);
 		
