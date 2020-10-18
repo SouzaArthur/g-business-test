@@ -43,4 +43,8 @@ public class ProgramaService {
 		
 		return newProgramName;
 	}
+	
+	public Programa update(Programa obj) {
+		return repository.save(obj);
+	}
 }
