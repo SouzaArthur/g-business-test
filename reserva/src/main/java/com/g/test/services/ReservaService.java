@@ -39,7 +39,7 @@ public class ReservaService {
 	    String result = restTemplate.getForObject(uri, String.class);
 	    
 	    if(result == null) {
-	    	throw new Exception("Programa "+ reserveObj.getIdPrograma()  + " não existente. Reserva não pode ser efetuada.");
+	    	throw new Exception("Programa "+ reserveObj.getIdPrograma()  + " não encontrado");
 	    }
 		
 		//Verifying if the solicited time is available
