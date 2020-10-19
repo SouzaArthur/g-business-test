@@ -18,7 +18,7 @@ public interface EstoqueRepository extends JpaRepository<Estoque, Integer>{
 	public List<Estoque> findByIdProgramString(@Param("stringId") String stringId);
 	
 	@Transactional(readOnly=true)
-	@Query("SELECT obj FROM Estoque obj WHERE obj.idPrograma = :stringId AND obj.tempoDisponivel >= :time AND obj.tempoDisponivel <= obj.tempoDisponivel")
-	public List<Estoque> findSolicitedTime(@Param("stringId") String stringId, @Param("time") Integer time);
+	@Query("SELECT obj FROM Estoque obj WHERE obj.idPrograma = :stringId AND obj.tempoDisponivel >= :time * :quantidade AND obj.tempoDisponivel <= obj.tempoDisponivel")
+	public List<Estoque> findSolicitedTime(@Param("stringId") String stringId, @Param("time") Integer time, @Param("quantidade") Integer quantidade);
 	
 }
