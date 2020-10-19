@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Estoque implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -17,7 +19,7 @@ public class Estoque implements Serializable{
 	private Integer id;
 	
 	private String idPrograma;
-	
+
 	private Date dataExibicao;
 	
 	private Integer tempoDisponivel;
