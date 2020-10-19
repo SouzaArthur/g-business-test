@@ -36,15 +36,22 @@ public class ProgramaService {
 		String programName = programObj.getNome();
 		String newProgramName = "";
 
-		
-		for(int i = programName.length() - 1; i >= 0; i--) {
-			newProgramName = newProgramName + programName.charAt(i);
-		}
+		newProgramName = this.invertName(programName);
 		
 		return newProgramName;
 	}
 	
 	public Programa update(Programa obj) {
 		return repository.save(obj);
+	}
+	
+	public String invertName(String programName) {
+		String newProgramName = "";
+		
+		for(int i = programName.length() - 1; i >= 0; i--) {
+			newProgramName = newProgramName + programName.charAt(i);
+		}
+		
+		return newProgramName;
 	}
 }
