@@ -2,12 +2,17 @@ package com.g.test.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Reserva implements Serializable {
@@ -19,9 +24,13 @@ public class Reserva implements Serializable {
 	
 	private String codigoReserva;
 	
+	@JsonFormat(pattern="dd/MM/yyyy", timezone="America/Sao_Paulo")
 	private Date dataReserva;
 	
 	private UUID requestId;
+	
+	@OneToMany(mappedBy="reserva", cascade=CascadeType.ALL)
+	private List<ReservaPrograma> reservaProgramaList; 
 	
 	public Reserva(String codigoReserva, Date dataReserva, UUID requestId) {
 		super();
@@ -62,6 +71,14 @@ public class Reserva implements Serializable {
 
 	public void setRequestId(UUID requestId) {
 		this.requestId = requestId;
+	}
+
+	public List<ReservaPrograma> getReservaProgramaList() {
+		return reservaProgramaList;
+	}
+
+	public void setReservaProgramaList(List<ReservaPrograma> reservaProgramaList) {
+		this.reservaProgramaList = reservaProgramaList;
 	}
 
 	@Override
