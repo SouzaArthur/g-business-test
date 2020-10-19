@@ -31,9 +31,10 @@ public class ReservaApplication implements CommandLineRunner{
 		Estoque es1 = new Estoque("MAVO", df.parse("04/09/2020"), 100);
 		Estoque es2 = new Estoque("N19H", df.parse("09/09/2020"), 100);
 		Estoque es3 = new Estoque("HUCK", df.parse("05/09/2020"), 40);
-		Estoque es4 = new Estoque("DFAU", df.parse("06/09/2020"), 100);	
+		Estoque es4 = new Estoque("DFAU", df.parse("06/09/2020"), 100);
+		Estoque es5 = new Estoque("MAVO", df.parse("05/09/2020"), 120);
 		
-		estoqueRepository.saveAll(Arrays.asList(es1, es2, es3, es4));
+		estoqueRepository.saveAll(Arrays.asList(es1, es2, es3, es4, es5));
 		
 	}
 

@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ReservaPrograma implements Serializable {
@@ -17,20 +22,23 @@ public class ReservaPrograma implements Serializable {
 	private Integer id;
 	
 	private String idPrograma;
-	
-	private Integer idReserva;
-	
+		
 	private Integer quantidade;
 	
 	private Integer tempo;
 	
+	@JsonFormat(pattern="dd/MM/yyyy", timezone="America/Sao_Paulo")
 	private Date dataExibicao;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="id_reserva")
+	private Reserva reserva;
 
-	public ReservaPrograma(String idPrograma, Integer idReserva, Integer quantidade, Integer tempo,
+	public ReservaPrograma(String idPrograma, Integer quantidade, Integer tempo,
 			Date dataExibicao) {
 		super();
 		this.idPrograma = idPrograma;
-		this.idReserva = idReserva;
 		this.quantidade = quantidade;
 		this.tempo = tempo;
 		this.dataExibicao = dataExibicao;
@@ -52,14 +60,6 @@ public class ReservaPrograma implements Serializable {
 
 	public void setIdPrograma(String idPrograma) {
 		this.idPrograma = idPrograma;
-	}
-
-	public Integer getIdReserva() {
-		return idReserva;
-	}
-
-	public void setIdReserva(Integer idReserva) {
-		this.idReserva = idReserva;
 	}
 
 	public Integer getQuantidade() {
@@ -84,6 +84,14 @@ public class ReservaPrograma implements Serializable {
 
 	public void setDataExibicao(Date dataExibicao) {
 		this.dataExibicao = dataExibicao;
+	}
+
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
 	}
 
 	@Override
