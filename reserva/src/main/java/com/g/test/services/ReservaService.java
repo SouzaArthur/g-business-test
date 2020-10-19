@@ -16,6 +16,8 @@ import com.g.test.domain.ReservaPrograma;
 import com.g.test.repositories.EstoqueRepository;
 import com.g.test.repositories.ReservaProgramaRepository;
 import com.g.test.repositories.ReservaRepository;
+import com.g.test.services.exception.ProgramNotFoundException;
+import com.g.test.services.exception.StockNotAvailable;
 
 @Service
 public class ReservaService {
@@ -54,7 +56,7 @@ public class ReservaService {
 			
 			//Tratar Erro - Programa não encontrado
 			if(result == null) {
-				throw new Exception("Programa "+ reserveObjList.get(i).getIdPrograma()  + " não encontrado");
+				throw new ProgramNotFoundException("Programa "+ reserveObjList.get(i).getIdPrograma()  + " não encontrado");
 			}
 			
 			
@@ -65,7 +67,7 @@ public class ReservaService {
 			List<Estoque> estoqueDisponivel = estoqueRepository.findSolicitedTime(reserveObjList.get(i).getIdPrograma(), reserveObjList.get(i).getTempo());
 			
 			if(estoqueDisponivel.isEmpty()) {
-				throw new Exception("Não existe estoque disponível para o programa " + reserveObjList.get(i).getIdPrograma());
+				throw new StockNotAvailable("Não existe estoque disponível para o programa " + reserveObjList.get(i).getIdPrograma());
 			}	
 			
 			// Tem estoque... agora verificar se tem estoque para a data solicitada
@@ -83,7 +85,7 @@ public class ReservaService {
 					
 					//Só lançar o erro depois de verificar todo o estoque desse programa
 					if(x + 1 == estoqueDisponivel.size()) {						
-						throw new Exception("A data informada não está disponível no estoque para o programa " + reserveObjList.get(i).getIdPrograma());
+						throw new StockNotAvailable("A data informada não está disponível no estoque para o programa " + reserveObjList.get(i).getIdPrograma());
 					}
 				}else {
 					break;
