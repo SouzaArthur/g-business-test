@@ -64,7 +64,7 @@ public class ReservaService {
 			List<Estoque> estoqueObjReturned = estoqueRepository.findByIdProgramString(reserveObjList.get(i).getIdPrograma());
 			
 			//Verificando se o tempo solicitado está disponível para o atual Programa
-			List<Estoque> estoqueDisponivel = estoqueRepository.findSolicitedTime(reserveObjList.get(i).getIdPrograma(), reserveObjList.get(i).getTempo());
+			List<Estoque> estoqueDisponivel = estoqueRepository.findSolicitedTime(reserveObjList.get(i).getIdPrograma(), reserveObjList.get(i).getTempo(), reserveObjList.get(i).getQuantidade());
 			
 			if(estoqueDisponivel.isEmpty()) {
 				throw new StockNotAvailable("Não existe estoque disponível para o programa " + reserveObjList.get(i).getIdPrograma());
@@ -110,7 +110,7 @@ public class ReservaService {
 			reservaProgramaRepository.save(reservaProgramaToSaveObj);
 			
 			//Verifinca de qual linha do estoque subtrair
-			List<Estoque> estoqueDisponivel = estoqueRepository.findSolicitedTime(reserveObjList.get(y).getIdPrograma(), reserveObjList.get(y).getTempo());
+			List<Estoque> estoqueDisponivel = estoqueRepository.findSolicitedTime(reserveObjList.get(y).getIdPrograma(), reserveObjList.get(y).getTempo(), reserveObjList.get(y).getQuantidade());
 			
 			//Tempo real do programa atual sendo salvo
 			Integer realTime = reserveObjList.get(y).getTempo() * reserveObjList.get(y).getQuantidade();
