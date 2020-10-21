@@ -17,6 +17,7 @@ import com.g.test.repositories.EstoqueRepository;
 import com.g.test.repositories.ReservaProgramaRepository;
 import com.g.test.repositories.ReservaRepository;
 import com.g.test.services.exception.ProgramNotFoundException;
+import com.g.test.services.exception.RepeatedProgram;
 import com.g.test.services.exception.StockNotAvailable;
 
 @Service
@@ -47,6 +48,19 @@ public class ReservaService {
 		
 		//Verificando possíveis erros
 		for(int i = 0; i < reserveObjList.size(); i++) {
+			
+			//Verificando se existem programas repetidos na solicitação
+			//ex: mesma data para o mesmo programa
+			
+			for(int e = 0; e < reserveObjList.size(); e++) {
+				if(reserveObjList.get(i).getIdPrograma().equals(reserveObjList.get(e).getIdPrograma()) &&
+						reserveObjList.get(i).getDataExibicao().equals(reserveObjList.get(e).getDataExibicao()) &&
+						e != i) {
+					throw new RepeatedProgram("O programa " + reserveObjList.get(i).getIdPrograma() + " está sendo solicitado com a data " + df.format(reserveObjList.get(i).getDataExibicao()) + " mais de uma vez");
+				}
+			}
+			
+			
 			//Verificando se os objetos recebidos existem na tabela programa
 
 			//URL para API para consultar programa 
