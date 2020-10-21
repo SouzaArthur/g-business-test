@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.g.test.resources.exception.StandardError;
 import com.g.test.services.exception.ProgramNotFoundException;
+import com.g.test.services.exception.RepeatedProgram;
 import com.g.test.services.exception.StockNotAvailable;
 
 @ControllerAdvice
@@ -26,5 +27,12 @@ public class ResourceExceptionHandler {
 		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+	}
+	
+	@ExceptionHandler(RepeatedProgram.class)
+	public ResponseEntity<StandardError> repeatedProgram(RepeatedProgram e, HttpServletRequest request){
+		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 }
